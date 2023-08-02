@@ -2,13 +2,30 @@ export class PrimeNumber {
 
     private static num: number;
 
-    static isPrime(num: number): PrimeNumber {
+    static create(num: number): PrimeNumber {
         PrimeNumber.num = num;
 
         return new PrimeNumber();
     }
+    static isPrime(num: number) {
+
+        if (num <= 1) {
+            return false;
+        }
+
+        if (num === 2 || num === 3) {
+            return true;
+        }
+
+        if (num % 2 === 0 || num % 3 === 0) {
+            return false;
+        }
+
+        return true
+    }
 
     isCurrentNumberPrime(): boolean {
+
         if (PrimeNumber.num <= 1) {
             return false;
         }
@@ -36,9 +53,12 @@ export class PrimeNumber {
         const primes: number[] = [];
         let count = 0;
         let num = PrimeNumber.num;
+        if (!PrimeNumber.isPrime(num)) {
+            return []
+        }
 
         while (count < n) {
-            if (PrimeNumber.isPrime(num).isCurrentNumberPrime()) {
+            if (PrimeNumber.create(num).isCurrentNumberPrime()) {
                 primes.push(num);
                 count++;
             }

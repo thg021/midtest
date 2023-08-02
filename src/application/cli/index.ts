@@ -19,12 +19,13 @@ const options: Option[] = [
         name: 'Calculator',
         action: (params: any) => {
             try {
+                const { x, y, operator } = params
                 const result = Calculator.executeOperation({
-                    x: parseFloat(params.x),
-                    y: parseFloat(params.y),
-                    operator: params.operator
+                    x: parseFloat(x),
+                    y: parseFloat(y),
+                    operator: operator
                 })
-                console.log(`\nResult Calculator: ${result}\n`);
+                console.log(`\nResult: ${x} ${operator} ${y} = ${result}\n`);
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -53,7 +54,7 @@ const options: Option[] = [
             {
                 type: "list",
                 name: 'operator',
-                message: 'Enter type operator:',
+                message: 'Choose the type of operator:',
                 choices: ['+', '-', '*', '/']
             }
         ],
@@ -63,8 +64,11 @@ const options: Option[] = [
         action: (params: any) => {
 
             try {
-                const result = PrimeNumber.isPrime(params.x).getFirstNPrimes(params.n)
-                console.log(`\nResult Prime numbers: ${result}\n`);
+                const num = parseFloat(params.x)
+                const result = PrimeNumber.create(num).getFirstNPrimes(10)
+                !PrimeNumber.isPrime(num)
+                    ? console.log(`\nThe entered number ${num} is no prime\n`)
+                    : console.log(`\nThe entered number ${num} is prime and the next prime numbers starting from this are: ${result}\n`)
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -75,21 +79,12 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'x',
-                message: 'Enter parameter 3:',
+                message: 'Enter a number:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
                 },
-            },
-            {
-                type: 'input',
-                name: 'n',
-                message: 'Enter number repetion:',
-                validate: (value: any) => {
-                    const num = parseFloat(value);
-                    return !isNaN(num) ? true : 'Please enter a valid number';
-                },
-            },
+            }
         ],
     },
     {
@@ -98,7 +93,7 @@ const options: Option[] = [
 
             try {
                 const result = Factorial.calculate(params.x)
-                console.log(`\nResult Prime numbers: ${result}\n`);
+                console.log(`\nFactorial: ${result}\n`);
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -108,7 +103,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'x',
-                message: 'Enter number:',
+                message: 'Enter a number:',
             },
         ],
     },
@@ -117,7 +112,7 @@ const options: Option[] = [
         action: (params: any) => {
             try {
                 const result = Palindrome.checkPalindrome(params.text)
-                console.log(`\nO ${params.text} é: ${result}\n`);
+                console.log(`\nThe ${params.text} is palindrome? ${result}\n`);
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -127,7 +122,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'text',
-                message: 'Entre com o texto para verficarmos se é um palimetro:',
+                message: 'Enter the text to check if it is a palindrome:',
             },
         ],
     },
@@ -137,7 +132,7 @@ const options: Option[] = [
             try {
                 const result = MultiplicationTable.generateTable(params.number)
                 const table = result.join(',').replace(/,/g, "\n")
-                console.log(`\n Multiplication Table number ${params.number}: \n ${table}\n`);
+                console.log(`\nMultiplication table ${params.number}:\n${table}\n`);
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -147,7 +142,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'number',
-                message: 'Enter parameter 3:',
+                message: 'Enter a number:',
             },
         ],
     },
@@ -156,7 +151,7 @@ const options: Option[] = [
         action: (params: any) => {
             try {
                 const result = Vowel.count(params.text)
-                console.log(`\n Total vowels the phase [${params.text}] is: \n ${result}\n`);
+                console.log(`\nThe total number of vowels in the text [${params.text}]: \n ${result}\n`);
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -166,7 +161,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'text',
-                message: 'Enter parameter 3:',
+                message: 'Enter a phrase or word:',
             },
         ],
     },
@@ -190,7 +185,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'grade1',
-                message: 'Enter grade1:',
+                message: 'Enter a grade1:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
@@ -199,7 +194,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'grade2',
-                message: 'Enter grade2:',
+                message: 'Enter a grade2:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
@@ -208,7 +203,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'grade3',
-                message: 'Enter grade3:',
+                message: 'Enter a grade3:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
@@ -228,7 +223,7 @@ const options: Option[] = [
                     investmentTimeMonths: parseFloat(investmentTimeMonths)
                 })
 
-                console.log(`\n Voce tera is: \n ${investmentCalculator.calculateFinalValue()}\n`);
+                console.log(`\nYou will have a total of at the end of the investment: \n $ ${investmentCalculator.calculateFinalValue()}\n`);
             } catch (error: any) {
                 console.log(error.message)
             }
@@ -238,7 +233,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'initialCapital',
-                message: 'Enter initialCapital 3:',
+                message: 'Enter the initial capital:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
@@ -247,7 +242,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'interestRate',
-                message: 'Enter interestRate 3:',
+                message: 'Enter the interest rate:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
@@ -256,7 +251,7 @@ const options: Option[] = [
             {
                 type: 'input',
                 name: 'investmentTimeMonths',
-                message: 'Enter investmentTimeMonths 3:',
+                message: 'Enter the total number of months the money will be invested:',
                 validate: (value: any) => {
                     const num = parseFloat(value);
                     return !isNaN(num) ? true : 'Please enter a valid number';
@@ -295,5 +290,5 @@ function showOptions() {
         });
 }
 
-console.log('Welcome to the CLI prompt!');
+console.log('Welcome to the exercises list for the developer position!');
 showOptions();

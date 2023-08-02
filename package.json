@@ -4,18 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run", 
-    "test:watch": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cli": "tsx src/application/cli/index.ts"
   },
+  "type": "module",
   "keywords": [],
   "author": "thiago da silva",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^20.4.5",
+    "tsup": "^7.1.0",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
   },
   "dependencies": {
+    "inquirer": "^9.2.9",
     "vite-tsconfig-paths": "^4.2.0"
   }
 }
